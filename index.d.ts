@@ -1,39 +1,37 @@
 // Type definitions for facebook-chat-api 1.4
 // Project: https://github.com/Schmavery/facebook-chat-api#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Kissor Jeyabalan <https://github.com/kissorjeyabalan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
+                                 options: FacebookChatApi.ILoginOptions,
+                                 callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void) : void;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
+declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
+                                 callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void) : void;
 
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+
+declare namespace FacebookChatApi {
+
+    export interface ILoginCredentials {
+        email: string;
+        password: string
+    }
+
+    export interface IAppState {
+        appState: object;
+    }
+
+    export interface ILoginOptions {
+        logLevel?: 'silly' | 'verbose' | 'info' | 'http' | 'warn' | 'error' | 'silent';
+        selfListen?: boolean;
+        listenEvents: boolean;
+        pageID: string;
+        updatePresence: boolean;
+        forceLogin: boolean;
+    }
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    export function foo(): void;
+declare module "facebook-chat-api" {
+    export = FacebookChatApi;
 }
