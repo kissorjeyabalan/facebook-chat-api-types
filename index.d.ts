@@ -71,7 +71,7 @@ declare namespace FacebookChatApi {
         profileUrl: string;
     }
 
-    export type AttachmentType = 'sticker' | 'file' | 'photo' | 'animated_image' | 'share' | 'video';
+    export type AttachmentType = 'sticker' | 'file' | 'photo' | 'animated_image' | 'share' | 'video' | 'audio';
 
     export interface IAttachment {
         type: AttachmentType;
@@ -108,7 +108,6 @@ declare namespace FacebookChatApi {
         type: 'photo';
         ID: string;
         filename: string;
-        url?: string;
         thumbnailUrl: string;
         previewUrl: string;
         previewWidth: number;
@@ -116,6 +115,7 @@ declare namespace FacebookChatApi {
         largePreviewUrl: string;
         largePreviewWidth: number;
         largePreviewHeight: number;
+        url: string;
         width: number;
         height: number;
     }
@@ -124,6 +124,7 @@ declare namespace FacebookChatApi {
         type: 'animated_image';
         name: string;
         facebookUrl: string;
+        previewUrl: string;
         previewWidth: number;
         previewHeight: number;
         thumbnailUrl: string;
@@ -141,7 +142,7 @@ declare namespace FacebookChatApi {
         animatedWebpPreviewUrl: string;
     }
 
-    export interface ShareAttachment extends IAttachment {
+    export interface IShareAttachment extends IAttachment {
         type: 'share';
         description: string;
         ID: string;
@@ -158,9 +159,33 @@ declare namespace FacebookChatApi {
         source: string;
         title: string;
         facebookUrl: string;
-        url: string;
-        target: any;
+        target: string;
         styleList: string[];
+        url: string;
+    }
+
+    export interface IVideoAttachment extends IAttachment {
+        type: 'video';
+        filename: string;
+        thumbnailUrl: string;
+        previewUrl: string;
+        previewWidth: number;
+        previewHeigth: number;
+        ID: string;
+        url: string;
+        width: number;
+        height: number;
+        duration: number;
+    }
+
+    export interface IAudioAttachment extends IAttachment {
+        type: 'audio';
+        audioType: string;
+        isVoiceMail: boolean;
+        filename: string;
+        ID: string;
+        url: string;
+        duration: number;
     }
 
     export interface ISubAttachment {
@@ -201,29 +226,121 @@ declare namespace FacebookChatApi {
         };
     }
 
-
-
     export interface IThreadHistoryMessage {
         type: 'message';
-        senderID: string;
         senderName: string;
-        participantIDs: string[];
+        senderID: string;
         participantNames: string[];
+        participantIDs: string[];
         body: string;
         threadID: string;
         threadName: string;
-        location: any;
+        location: string;
         messageID: string;
         attachments: IAttachment[];
         timestamp: number;
-        timestampAbsolute?: number;
-        timestampRelative?: number;
-        timestampDatetime?: number;
+        timestampAbsolute: number;
+        timestampRelative: number;
+        timestampDatetime: number;
         tags: string[];
         reactions: IDictionary<string>;
+        isUnread: boolean;
         isGroup: boolean;
     }
 
+    export type GraphQLType = 'image' | 'video' | 'file' | 'audio' | 'share' | 'sticker';
+
+    export interface IAttachmentGraphQL {
+        type: GraphQLType;
+    }
+
+    export interface IImageAttachmentGraphQL {
+        width: number;
+        height: number;
+        type: 'image';
+        filename: string;
+        attachmentID: string;
+        previewHeight: number;
+        previewUrl: string;
+        previewWidth: number;
+        thumbnailUrl: string;
+        attributionApp: {
+            attributionAppID: string,
+            name: string,
+            logo: any
+        };
+        extension: string;
+        largePreviewUrl: string;
+        largePreviewHeight: number;
+        largePreviewWidth: number;
+    }
+
+    export interface IVideoAttachmentGraphQL {
+        type: 'video';
+        thumbnailUrl: string;
+        filename: string;
+        height: number;
+        width: number;
+        attachmentID: string;
+        url: string;
+        duration: number;
+        thumbnailWidth: number;
+        thumbnailHeight: number;
+        videoType: string;
+    }
+
+    export interface IFileAttachmentGraphQL {
+        attachmentID: string;
+        isMalicious: boolean;
+        type: 'file';
+        url: string;
+        contentType: string;
+        filename: string;
+    }
+
+    export interface IAudioAttachmentGraphQL {
+        attachmentID: string;
+        type: 'audio';
+        audioType: string;
+        duration: number;
+        url: string;
+        isVoiceMail: boolean;
+        filename: string;
+    }
+
+    export interface IShareAttachmentGraphQL {
+        type: 'share';
+        description: string;
+        attachmentID: number;
+        title: string;
+        subattachments: ISubAttachment[];
+        url: string;
+        source: string;
+        playable: boolean;
+        thumbnailUrl: string;
+        thumbnailWidth: number;
+        thumbnailHeight: number;
+        duration: number;
+        playableUrl: string;
+        properties: any;
+    }
+
+    export interface IStickerAttachmentGraphQL {
+        caption: string;
+        description: string;
+        frameCount: number;
+        frameRate: number;
+        framesPerCol: number;
+        framesPerRow: number;
+        packID: string;
+        spriteURI2x: string;
+        spriteURI: string;
+        stickerID: string;
+        url: string;
+        height: number;
+        width: number;
+        type: 'sticker';
+    }
 
 
     ////////////////////////
