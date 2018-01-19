@@ -3,15 +3,29 @@
 // Definitions by: Kissor Jeyabalan <https://github.com/kissorjeyabalan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Main entry point to the API.
+ * Allows the user to log into facebook given the right credentials.
+ *
+ * @constructor
+ * @param {FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState} credentials - Object containing email and password or object containing appState
+ * @param {FacebookChatApi.ILoginOptions} options - Optional object representing options ot use when logging in
+ * @param {(err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void} callback - When login is done (successful or not)
+ */
 declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
-                                 options: FacebookChatApi.ILoginOptions,
+                                 options: FacebookChatApi.IApiOptions,
                                  callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void) : void;
+
 
 declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
                                  callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void) : void;
 
 
 declare namespace FacebookChatApi {
+
+    ////////////////////////
+    // Interfaces
+    ////////////////////////
 
     export interface ILoginCredentials {
         email: string;
@@ -22,7 +36,7 @@ declare namespace FacebookChatApi {
         appState: object;
     }
 
-    export interface ILoginOptions {
+    export interface IApiOptions {
         logLevel?: 'silly' | 'verbose' | 'info' | 'http' | 'warn' | 'error' | 'silent';
         selfListen?: boolean;
         listenEvents: boolean;
@@ -30,6 +44,11 @@ declare namespace FacebookChatApi {
         updatePresence: boolean;
         forceLogin: boolean;
     }
+
+    export interface IError {
+        error: string;
+    }
+
 }
 
 declare module "facebook-chat-api" {
