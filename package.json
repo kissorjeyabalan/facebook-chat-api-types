@@ -1,0 +1,15 @@
+{
+  "name": "@types/facebook-chat-api",
+  "version": "1.5.0",
+  "description": "Typing definitons for the facebook-chat-api-module.",
+  "main": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kissorjeyabalan/facebook-chat-api-types.git"
+  },
+  "author": {
+      "name": "Kissor Jeyabalan",
+      "email": "dev@kij.no",
+      "url": "https://kij.no"
+  }
+}
