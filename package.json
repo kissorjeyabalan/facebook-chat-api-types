@@ -5,7 +5,7 @@
   "main": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kissorjeyabalan/facebook-chat-api-types.git"
+    "url": "git+https://github.com/kissorjeyabalan/facebook-chat-api-typings.git"
   },
   "author": {
       "name": "Kissor Jeyabalan",
