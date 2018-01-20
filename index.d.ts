@@ -14,12 +14,12 @@
  * @param {FacebookChatApi.ILoginOptions} options - Optional object representing options ot use when logging in
  * @param {(err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void} callback - When login is done (successful or not)
  */
-declare function login(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
+declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
                        options: FacebookChatApi.IApiOptions,
                        callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
 
 
-declare function login(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
+declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
                        callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
 
 
@@ -589,87 +589,83 @@ declare namespace FacebookChatApi {
     // API
     ////////////////////////
 
-    export class Api {
+    export interface Api {
 
-        public addUserToGroup(userID: string | string[], threadID: string, callback: (err: IError) => void): void;
+        addUserToGroup(userID: string | string[], threadID: string, callback?: (err: IError) => void): void;
 
-        public changeArchivedStatus(threadOrThreads: string | string[], archive: boolean, callback: (err: IError) => void): void;
+        changeArchivedStatus(threadOrThreads: string | string[], archive: boolean, callback?: (err: IError) => void): void;
 
-        public changeBlockedStatus(userID: string, block: boolean, callback: (err: IError) => void): void;
+        changeBlockedStatus(userID: string, block: boolean, callback?: (err: IError) => void): void;
 
-        public changeGroupImage(image: ReadableStream, threadID: string, callback: (err: IError) => void): void;
+        changeGroupImage(image: ReadableStream, threadID: string, callback?: (err: IError) => void): void;
 
-        public changeNickname(nickname: string, threadID: string, participantID: string, callback: (err: IError) => void): void;
+        changeNickname(nickname: string, threadID: string, participantID: string, callback?: (err: IError) => void): void;
 
-        public changeThreadColor(color: string, threadID: string, callback: (err: IError) => void): void;
+        changeThreadColor(color: string, threadID: string, callback?: (err: IError) => void): void;
 
-        public changeThreadEmoji(emoji: string, threadID: string, callback: (err: IError) => void): void;
+        changeThreadEmoji(emoji: string, threadID: string, callback?: (err: IError) => void): void;
 
-        public createPoll(title: string, threadID: string, callback: (err: IError) => void): void;
+        createPoll(title: string, threadID: string, options?: IPollOptions, callback?: (err: IError) => void): void;
 
-        public createPoll(title: string, threadID: string, options: IPollOptions, callback: (err: IError) => void): void;
+        deleteMessage(messageOrMessages: string | string[], callback?: (err: IError) => void): void;
 
-        public deleteMessage(messageOrMessages: string | string[], callback: (err: IError) => void): void;
+        deleteThread(threadOrThreads: string | string[], callback?: (err: IError) => void): void;
 
-        public deleteThread(threadOrThreads: string | string[], callback: (err: IError) => void): void;
+        forwardAttachment(attachmentID: string, userOrUsers: string | string[], callback?: (err: IError) => void): void;
 
-        public forwardAttachment(attachmentID: string, userOrUsers: string | string[], callback: (err: IError) => void): void;
+        getAppState(): IAppState;
 
-        public getAppState(): IAppState;
+        getCurrentUserID(): String;
 
-        public getCurrentUserID(): String;
+        getEmojiUrl(emojiCharacter: string, size: number, pixelRatio?: number): string;
 
-        public getEmojiUrl(emojiCharacter: string, size: number, pixelRatio?: number): string;
+        getFriendsList(callback: (err: IError, arr: IUser[]) => void): void;
 
-        public getFriendsList(callback: (err: IError, arr: IUser[]) => void): void;
-
-        public getThreadHistory(threadID: string, amount: number, timestamp: number,
+        getThreadHistory(threadID: string, amount: number, timestamp: number,
                                 callback: (err: IError, history: IThreadHistoryMessage[]) => void): void;
 
-        public getThreadHistoryGraphQL(threadID: string, amount: number, timestamp: number,
+        getThreadHistoryGraphQL(threadID: string, amount: number, timestamp: number,
                                        callback: (err: IError, history: IAttachmentGraphQL[]) => void): void;
 
-        public getThreadInfo(threadID: string, callback: (err: IError, info: IThreadInfo) => void): void;
+        getThreadInfo(threadID: string, callback?: (err: IError, info: IThreadInfo) => void): void;
 
-        public getThreadInfoGraphQL(threadID: string, callback: (err: IError, info: IThreadInfoGraphQL) => void): void;
+        getThreadInfoGraphQL(threadID: string, callback?: (err: IError, info: IThreadInfoGraphQL) => void): void;
 
-        public getThreadList(start: number, end: number, type: IThreadListType, callback: (err: IError, threadIDs: IThreadInfo[]) => void): void;
+        getThreadList(start: number, end: number, type: IThreadListType, callback: (err: IError, threadIDs: IThreadInfo[]) => void): void;
 
-        public getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: IError, arr: IThreadPicture[]) => void): void;
+        getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: IError, arr: IThreadPicture[]) => void): void;
 
-        public getUserID(name: string, callback: (err: IError, obj: IUserIDInfo) => void): void;
+        getUserID(name: string, callback: (err: IError, obj: IUserIDInfo) => void): void;
 
-        public getUserInfo(userID: string | string[], callback: (err: IError, obj: IDictionary<IUserInfo>) => void): void;
+        getUserInfo(userID: string | string[], callback: (err: IError, obj: IDictionary<IUserInfo>) => void): void;
 
-        public threadColors(): string;
+        threadColors(): string;
 
-        public handleMessageRequest(threadID: string | string[], accept: boolean, callback: (err: IError) => void): void;
+        handleMessageRequest(threadID: string | string[], accept: boolean, callback?: (err: IError) => void): void;
 
-        public listen(callback: (err: IError, message: IEvent) => void): void;
+        listen(callback: (err: IError, message: IEvent) => void): void;
 
-        public logout(callback: (err: IError) => void): void;
+        logout(callback?: (err: IError) => void): void;
 
-        public markAsRead(threadID: string, callback: (err: IError) => void): void;
+        markAsRead(threadID: string, callback?: (err: IError) => void): void;
 
-        public muteThread(threadID: string, muteSeconds: number, callback: (err: IError) => void): void;
+        muteThread(threadID: string, muteSeconds: number, callback?: (err: IError) => void): void;
 
-        public removeUserFromGroup(userID: string, threadID: string, callback: (err: IError) => void): void;
+        removeUserFromGroup(userID: string, threadID: string, callback?: (err: IError) => void): void;
 
-        public resolvePhotoUrl(photoID: string, callback: (err: IError, url: string) => void): void;
+        resolvePhotoUrl(photoID: string, callback: (err: IError, url: string) => void): void;
 
-        public sendMessage(message: string | IMessage, threadID: string, callback: (err: IError, messageInfo: IMessageInfo) => void): void;
+        sendMessage(message: string | IMessage, threadID: string, callback?: (err: IError, messageInfo: IMessageInfo) => void): void;
 
-        public sendTypingIndicator(threadID: string, callback: (err: IError) => void): void;
+        sendTypingIndicator(threadID: string, callback?: (err: IError) => void): void;
 
-        public setMessageReaction(reaction: ReactionType, messageID: string, callback: (err: IError) => void): void;
+        setMessageReaction(reaction: ReactionType, messageID: string, callback?: (err: IError) => void): void;
 
-        public setOptions(options: IApiOptions): void;
+        setOptions(options: IApiOptions): void;
 
-        public setTitle(newTitle: string, threadID: string, callback: (err: IError, obj: ITitleInfo) => void): void;
+        setTitle(newTitle: string, threadID: string, callback?: (err: IError, obj: ITitleInfo) => void): void;
     }
 
 }
 
-declare module "facebook-chat-api" {
-    export = login;
-}
+export = FacebookChatApi;
