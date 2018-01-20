@@ -13,12 +13,12 @@
  * @param {(err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void} callback - When login is done (successful or not)
  */
 declare function login(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
-                                 options: FacebookChatApi.IApiOptions,
-                                 callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
+                       options: FacebookChatApi.IApiOptions,
+                       callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
 
 
 declare function login(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
-                                 callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
+                       callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
 
 
 declare namespace FacebookChatApi {
@@ -57,19 +57,6 @@ declare namespace FacebookChatApi {
         [option: string]: boolean;
     }
 
-    export interface IUser {
-        userID: string;
-        firstName: string;
-        fullName: string;
-        alternateName: string;
-        gender: string;
-        isFriend: boolean;
-        isBirthday: boolean;
-        vanity: string;
-        type: string;
-        profilePicture: any;
-        profileUrl: string;
-    }
 
     export type AttachmentType = 'sticker' | 'file' | 'photo' | 'animated_image' | 'share' | 'video' | 'audio';
 
@@ -90,8 +77,8 @@ declare namespace FacebookChatApi {
         spriteURI2x: string;
         height: number;
         width: number;
-        caption?: string;
-        description?: string;
+        caption: string;
+        description: string;
     }
 
     export interface IFileAttachment extends IAttachment {
@@ -222,7 +209,7 @@ declare namespace FacebookChatApi {
         };
         messenger_ctas: string[];
         target: {
-            video_id: string;
+            video_id: string
         };
     }
 
@@ -342,6 +329,258 @@ declare namespace FacebookChatApi {
         type: 'sticker';
     }
 
+    export interface IThreadInfo {
+        threadID: string;
+        participantIDs: string[];
+        name: string;
+        nicknames?: string[];
+        snippet: string;
+        snippetAttachments: IAttachment[] | IAttachmentGraphQL[];
+        snippetSender: string;
+        unreadCount: number;
+        messageCount: number;
+        imageSrc?: string;
+        timestamp: number;
+        serverTimestamp: number;
+        muteUntil: number;
+        isCanonicalUser: boolean;
+        isCanonical: boolean;
+        isSubscribed: boolean;
+        folder: string;
+        isArchived: boolean;
+        recipientsLoadable: boolean;
+        hasEmailParticipant: boolean;
+        readOnly: boolean;
+        canReply: boolean;
+        cannotReplyReason?: string;
+        lastMessageTimestamp: number;
+        lastReadTimestamp: number;
+        lastMessageType: any;
+        emoji?: string;
+        color: string;
+        adminIDs: string[];
+        threadType: number;
+    }
+
+    export interface IEventReminder {
+        reminderID: string;
+        eventCreatorID: string;
+        time: number;
+        eventType: string;
+        locationName: string;
+        locationCoordinates: string;
+        locationPage: string;
+        eventStatus: string;
+        note: string;
+        repeatMode: string;
+        eventTitle: string;
+        triggerMessage: string;
+        secondsToNotifyBefore: number;
+        allowsRsvp: boolean;
+        relatedEvent: any;
+        members: {
+            memberID: string,
+            state: string
+        };
+    }
+
+    export interface IThreadInfoGraphQL {
+        threadID: string;
+        threadName: string;
+        participantIDs: string[];
+        unreadCount: number;
+        messageCount: number;
+        timestamp: number;
+        isPinProtected: boolean;
+        eventReminders?: IEventReminder;
+        relatedPageThread: string;
+        reactionsMuteMode: string;
+        mentionsMuteMode: string;
+        threadType: string;
+        topEmojis: string[];
+        emoji?: string;
+        color?: string;
+        nicknames: string[];
+    }
+
+    export interface IThreadPicture {
+        uri: string;
+        width: number;
+        height: number;
+    }
+
+    export type IThreadListType = 'inbox' | 'archived' | 'pending';
+
+    export interface IUser {
+        userID: string;
+        firstName: string;
+        fullName: string;
+        alternateName: string;
+        gender: string;
+        isFriend: boolean;
+        isBirthday: boolean;
+        vanity: string;
+        type: string;
+        profilePicture: any;
+        profileUrl: string;
+    }
+
+    export interface IUserInfo {
+        name: string;
+        firstName: string;
+        vanity: string;
+        thumbSrc: string;
+        profileUrl: string;
+        gender: string;
+        type: UserType;
+        isFriend: boolean;
+        isBirthday: boolean;
+        searchTokens: string[];
+        alternateName: string;
+    }
+
+    export interface IUserIDInfo {
+        userID: string;
+        photoUrl: string;
+        indexRank: number;
+        name: string;
+        isVerified: boolean;
+        profileUrl: boolean;
+        category: string;
+        score: number;
+        type: UserType;
+    }
+
+    export type UserType = 'user' | 'group' | 'page' | 'event' | 'app';
+
+    export type EventType = 'message' | 'event' | 'typ' | 'read' | 'read_receipt' | 'message_reaction' | 'presence';
+
+    export type MessageType =
+        'log:subscribe'
+        | 'log:unsubscribe'
+        | 'log:thread-name'
+        | 'log:thread-color'
+        | 'log:thread-icon'
+        | 'log:user-nickname';
+
+    export interface IEvent {
+        type: EventType;
+    }
+
+    export interface IMessageEvent extends IEvent {
+        type: 'message';
+        senderName: string;
+        senderID: string;
+        participantNames: string[];
+        participantIDs: string[];
+        body: string;
+        threadID: string;
+        threadName: string;
+        location?: string;
+        messageID: string;
+        attachments: IAttachment[] | IAttachmentGraphQL[];
+        timestamp: number;
+        timestampAbsolute: number;
+        timestampRelative: number;
+        timestampDatetime: number;
+        tags: string[];
+        reactions: IDictionary<string>
+        isUnread: boolean;
+        isGroup: boolean;
+    }
+
+    export interface IEventEvent extends IEvent {
+        threadID: string;
+        logMessageType: MessageType;
+        logMessageData: string;
+        logMessageBody: string;
+        author: string;
+        type: 'event';
+    }
+
+    export interface ITypEvent extends IEvent {
+        isTyping: boolean;
+        from: string;
+        threadID: string;
+        fromMobile: boolean;
+        userID: string;
+        type: 'typ';
+    }
+
+    export interface IReadEvent extends IEvent {
+        time: number;
+        threadID: string;
+        type: 'read';
+    }
+
+    export interface IReadReceiptEvent extends IEvent {
+        reader: string;
+        time: number;
+        threadID: string;
+        type: 'read_receipt';
+    }
+
+    export interface IMessageReactionEvent extends IEvent {
+        messageID: string;
+        offlineThreadingID: string;
+        reaction: string;
+        senderID: string;
+        threadID: string;
+        timestamp: number;
+        type: 'message_reaction';
+        userID: string;
+    }
+
+    export interface IPresenceEvent extends IEvent {
+        statuses: number;
+        timestamp: number;
+        type: 'presence';
+        userID: string;
+    }
+
+    export interface IMessage {
+        body: string;
+    }
+
+    export interface IStickerMessage extends IMessage {
+        sticker: string;
+    }
+
+    export interface IAttachmentMessage extends IMessage {
+        attachment: ReadableStream | ReadableStream[];
+    }
+
+    export interface IUrlMessage extends IMessage {
+        url: string;
+    }
+
+    export interface IEmojiMessage extends IMessage {
+        emoji: string;
+        emojiSize: 'small' | 'medium' | 'large';
+    }
+
+    export interface IMentionsMessage extends IMessage {
+        mentions: IMention[];
+    }
+
+    export interface IMention {
+        tag: string;
+        id: string;
+        fromIndex?: number;
+    }
+
+    export interface IMessageInfo {
+        threadID: string;
+        messageID: string;
+        timestamp: number;
+    }
+
+    export interface ITitleInfo {
+        threadID: string;
+    }
+
+    export type ReactionType = ':love:' | ':heart_eyes' | ':haha:' |
+        ':laughing:' | ':wow:' | ':open_mouth:' | ':sad:' | ':cry:' | ':angry:' | ':like:' | ':thumbsup:' | ':dislike:' | ':thumbsdown:';
 
     ////////////////////////
     // API
@@ -381,34 +620,49 @@ declare namespace FacebookChatApi {
 
         public getFriendsList(callback: (err: IError, arr: IUser[]) => void): void;
 
-        public getThreadHistory(threadID: string, amount: number, timestamp: number | undefined, callback: (err: IError, history: IThreadHistoryMessage[]) => void): void;
+        public getThreadHistory(threadID: string, amount: number, timestamp: number,
+                                callback: (err: IError, history: IThreadHistoryMessage[]) => void): void;
 
-        public getThreadHistoryGraphQL();
+        public getThreadHistoryGraphQL(threadID: string, amount: number, timestamp: number,
+                                       callback: (err: IError, history: IAttachmentGraphQL[]) => void): void;
 
-        public getThreadInfo();
-        public getThreadInfoGraphQL();
-        public getThreadList();
-        public getThreadPictures();
-        public getUserID();
-        public getUserInfo();
-        public handleMessageRequest();
-        public listen();
-        public logout();
-        public markAsRead();
-        public muteThread();
-        public removeUserFromGroup();
-        public resolvePhotoUrl();
-        public searchForThread();
-        public sendMessage();
-        public sendTypingIndicator();
-        public setMessageReaction();
-        public setTitle();
-        public threadColors();
+        public getThreadInfo(threadID: string, callback: (err: IError, info: IThreadInfo) => void): void;
 
+        public getThreadInfoGraphQL(threadID: string, callback: (err: IError, info: IThreadInfoGraphQL) => void): void;
 
+        public getThreadList(start: number, end: number, type: IThreadListType, callback: (err: IError, threadIDs: IThreadInfo[]) => void): void;
 
+        public getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: IError, arr: IThreadPicture[]) => void): void;
 
+        public getUserID(name: string, callback: (err: IError, obj: IUserIDInfo) => void): void;
 
+        public getUserInfo(userID: string | string[], callback: (err: IError, obj: IDictionary<IUserInfo>) => void): void;
+
+        public threadColors(): string;
+
+        public handleMessageRequest(threadID: string | string[], accept: boolean, callback: (err: IError) => void): void;
+
+        public listen(callback: (err: IError, message: IEvent) => void): void;
+
+        public logout(callback: (err: IError) => void): void;
+
+        public markAsRead(threadID: string, callback: (err: IError) => void): void;
+
+        public muteThread(threadID: string, muteSeconds: number, callback: (err: IError) => void): void;
+
+        public removeUserFromGroup(userID: string, threadID: string, callback: (err: IError) => void): void;
+
+        public resolvePhotoUrl(photoID: string, callback: (err: IError, url: string) => void): void;
+
+        public sendMessage(message: string | IMessage, threadID: string, callback: (err: IError, messageInfo: IMessageInfo) => void): void;
+
+        public sendTypingIndicator(threadID: string, callback: (err: IError) => void): void;
+
+        public setMessageReaction(reaction: ReactionType, messageID: string, callback: (err: IError) => void): void;
+
+        public setOptions(options: IApiOptions): void;
+
+        public setTitle(newTitle: string, threadID: string, callback: (err: IError, obj: ITitleInfo) => void): void;
     }
 
 }
