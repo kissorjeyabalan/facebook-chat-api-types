@@ -3,6 +3,8 @@
 // Definitions by: Kissor Jeyabalan <https://github.com/kissorjeyabalan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node"/>
+
 /**
  * Main entry point to the API.
  * Allows the user to log into facebook given the right credentials.
@@ -22,7 +24,8 @@ declare function login(credentials: FacebookChatApi.ILoginCredentials | Facebook
 
 
 declare namespace FacebookChatApi {
-
+    export type ReadableStream = NodeJS.ReadableStream;
+    
     ////////////////////////
     // Interfaces
     ////////////////////////
