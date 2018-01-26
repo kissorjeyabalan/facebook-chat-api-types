@@ -11,12 +11,12 @@ The typings will be installed into the @typings module.
 ```typescript
 import * as chat from 'facebook-chat-api';
 
-const creds: chat.ILoginCredentials = {email: 'user@email.com', password: 'hunter2';
+const creds: chat.LoginCredentials = {email: 'user@email.com', password: 'hunter2';
 
-chat(creds, (err: chat.IError, api: chat.Api) => {
+chat(creds, (err: chat.Error, api: chat.Api) => {
     if (err) { return console.error(err); }
 
-    api.listen((error: chat.IError, message: chat.IMessageEvent) => {
+    api.listen((error: chat.Error, message: chat.MessageEvent) => {
         if (error) { return console.error(error); }
 
         console.log(`${message.senderID}: ${message.body}`);

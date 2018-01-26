@@ -10,17 +10,17 @@
  * Allows the user to log into facebook given the right credentials.
  *
  * @constructor
- * @param {FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState} credentials - Object containing email and password or object containing appState
+ * @param {FacebookChatApi.LoginCredentials | FacebookChatApi.AppState} credentials - Object containing email and password or object containing appState
  * @param {FacebookChatApi.ILoginOptions} options - Optional object representing options ot use when logging in
- * @param {(err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void} callback - When login is done (successful or not)
+ * @param {(err: FacebookChatApi.Error, api: FacebookChatApi.Api) => void} callback - When login is done (successful or not)
  */
-declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
-                       options: FacebookChatApi.IApiOptions,
-                       callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
+declare function FacebookChatApi(credentials: FacebookChatApi.LoginCredentials | FacebookChatApi.AppState,
+                       options: FacebookChatApi.ApiOptions,
+                       callback: (err: FacebookChatApi.Error, api: FacebookChatApi.Api) => void): void;
 
 
-declare function FacebookChatApi(credentials: FacebookChatApi.ILoginCredentials | FacebookChatApi.IAppState,
-                       callback: (err: FacebookChatApi.IError, api: FacebookChatApi.Api) => void): void;
+declare function FacebookChatApi(credentials: FacebookChatApi.LoginCredentials | FacebookChatApi.AppState,
+                       callback: (err: FacebookChatApi.Error, api: FacebookChatApi.Api) => void): void;
 
 
 declare namespace FacebookChatApi {
@@ -30,16 +30,16 @@ declare namespace FacebookChatApi {
     // Interfaces
     ////////////////////////
 
-    export interface ILoginCredentials {
+    export interface LoginCredentials {
         email: string;
         password: string
     }
 
-    export interface IAppState {
+    export interface AppState {
         appState: object;
     }
 
-    export interface IApiOptions {
+    export interface ApiOptions {
         logLevel?: 'silly' | 'verbose' | 'info' | 'http' | 'warn' | 'error' | 'silent';
         selfListen?: boolean;
         listenEvents: boolean;
@@ -48,26 +48,26 @@ declare namespace FacebookChatApi {
         forceLogin: boolean;
     }
 
-    export interface IError {
+    export interface Error {
         error: string;
     }
 
-    export interface IDictionary<T> {
+    export interface Dictionary<T> {
         [key: string]: T;
     }
 
-    export interface IPollOptions {
+    export interface PollOptions {
         [option: string]: boolean;
     }
 
 
     export type AttachmentType = 'sticker' | 'file' | 'photo' | 'animated_image' | 'share' | 'video' | 'audio';
 
-    export interface IAttachment {
+    export interface Attachment {
         type: AttachmentType;
     }
 
-    export interface IStickerAttachment extends IAttachment {
+    export interface StickerAttachment extends Attachment {
         type: 'sticker';
         url: string;
         stickerID: string;
@@ -84,7 +84,7 @@ declare namespace FacebookChatApi {
         description: string;
     }
 
-    export interface IFileAttachment extends IAttachment {
+    export interface FileAttachment extends Attachment {
         type: 'file';
         name: string;
         url: string;
@@ -94,7 +94,7 @@ declare namespace FacebookChatApi {
         mimeType: string;
     }
 
-    export interface IPhotoAttachment extends IAttachment {
+    export interface PhotoAttachment extends Attachment {
         type: 'photo';
         ID: string;
         filename: string;
@@ -110,7 +110,7 @@ declare namespace FacebookChatApi {
         height: number;
     }
 
-    export interface IAnimatedImageAttachment extends IAttachment {
+    export interface AnimatedImageAttachment extends Attachment {
         type: 'animated_image';
         name: string;
         facebookUrl: string;
@@ -132,11 +132,11 @@ declare namespace FacebookChatApi {
         animatedWebpPreviewUrl: string;
     }
 
-    export interface IShareAttachment extends IAttachment {
+    export interface ShareAttachment extends Attachment {
         type: 'share';
         description: string;
         ID: string;
-        subattachments: ISubAttachment[];
+        subattachments: SubAttachment[];
         animatedImageSize: {
             height: number,
             width: number
@@ -154,7 +154,7 @@ declare namespace FacebookChatApi {
         url: string;
     }
 
-    export interface IVideoAttachment extends IAttachment {
+    export interface VideoAttachment extends Attachment {
         type: 'video';
         filename: string;
         thumbnailUrl: string;
@@ -168,7 +168,7 @@ declare namespace FacebookChatApi {
         duration: number;
     }
 
-    export interface IAudioAttachment extends IAttachment {
+    export interface AudioAttachment extends Attachment {
         type: 'audio';
         audioType: string;
         isVoiceMail: boolean;
@@ -178,7 +178,7 @@ declare namespace FacebookChatApi {
         duration: number;
     }
 
-    export interface ISubAttachment {
+    export interface SubAttachment {
         title: string;
         description: string;
         properties: any;
@@ -201,7 +201,7 @@ declare namespace FacebookChatApi {
         source: string;
         style_list: string[];
         forwardable: boolean;
-        subattachments: ISubAttachment[];
+        subattachments: SubAttachment[];
         deduplication_key: string;
         action_links: string[];
         messaging_attribution: {
@@ -216,7 +216,7 @@ declare namespace FacebookChatApi {
         };
     }
 
-    export interface IThreadHistoryMessage {
+    export interface ThreadHistoryMessage {
         type: 'message';
         senderName: string;
         senderID: string;
@@ -227,24 +227,24 @@ declare namespace FacebookChatApi {
         threadName: string;
         location: string;
         messageID: string;
-        attachments: IAttachment[];
+        attachments: Attachment[];
         timestamp: number;
         timestampAbsolute: number;
         timestampRelative: number;
         timestampDatetime: number;
         tags: string[];
-        reactions: IDictionary<string>;
+        reactions: Dictionary<string>;
         isUnread: boolean;
         isGroup: boolean;
     }
 
     export type GraphQLType = 'image' | 'video' | 'file' | 'audio' | 'share' | 'sticker';
 
-    export interface IAttachmentGraphQL {
+    export interface AttachmentGraphQL {
         type: GraphQLType;
     }
 
-    export interface IImageAttachmentGraphQL {
+    export interface ImageAttachmentGraphQL {
         width: number;
         height: number;
         type: 'image';
@@ -265,7 +265,7 @@ declare namespace FacebookChatApi {
         largePreviewWidth: number;
     }
 
-    export interface IVideoAttachmentGraphQL {
+    export interface VideoAttachmentGraphQL {
         type: 'video';
         thumbnailUrl: string;
         filename: string;
@@ -279,7 +279,7 @@ declare namespace FacebookChatApi {
         videoType: string;
     }
 
-    export interface IFileAttachmentGraphQL {
+    export interface FileAttachmentGraphQL {
         attachmentID: string;
         isMalicious: boolean;
         type: 'file';
@@ -288,7 +288,7 @@ declare namespace FacebookChatApi {
         filename: string;
     }
 
-    export interface IAudioAttachmentGraphQL {
+    export interface AudioAttachmentGraphQL {
         attachmentID: string;
         type: 'audio';
         audioType: string;
@@ -298,12 +298,12 @@ declare namespace FacebookChatApi {
         filename: string;
     }
 
-    export interface IShareAttachmentGraphQL {
+    export interface ShareAttachmentGraphQL {
         type: 'share';
         description: string;
         attachmentID: number;
         title: string;
-        subattachments: ISubAttachment[];
+        subattachments: SubAttachment[];
         url: string;
         source: string;
         playable: boolean;
@@ -315,7 +315,7 @@ declare namespace FacebookChatApi {
         properties: any;
     }
 
-    export interface IStickerAttachmentGraphQL {
+    export interface StickerAttachmentGraphQL {
         caption: string;
         description: string;
         frameCount: number;
@@ -332,13 +332,13 @@ declare namespace FacebookChatApi {
         type: 'sticker';
     }
 
-    export interface IThreadInfo {
+    export interface ThreadInfo {
         threadID: string;
         participantIDs: string[];
         name: string;
         nicknames?: string[];
         snippet: string;
-        snippetAttachments: IAttachment[] | IAttachmentGraphQL[];
+        snippetAttachments: Attachment[] | AttachmentGraphQL[];
         snippetSender: string;
         unreadCount: number;
         messageCount: number;
@@ -365,7 +365,7 @@ declare namespace FacebookChatApi {
         threadType: number;
     }
 
-    export interface IEventReminder {
+    export interface EventReminder {
         reminderID: string;
         eventCreatorID: string;
         time: number;
@@ -387,7 +387,7 @@ declare namespace FacebookChatApi {
         };
     }
 
-    export interface IThreadInfoGraphQL {
+    export interface ThreadInfoGraphQL {
         threadID: string;
         threadName: string;
         participantIDs: string[];
@@ -395,7 +395,7 @@ declare namespace FacebookChatApi {
         messageCount: number;
         timestamp: number;
         isPinProtected: boolean;
-        eventReminders?: IEventReminder;
+        eventReminders?: EventReminder;
         relatedPageThread: string;
         reactionsMuteMode: string;
         mentionsMuteMode: string;
@@ -406,15 +406,15 @@ declare namespace FacebookChatApi {
         nicknames: string[];
     }
 
-    export interface IThreadPicture {
+    export interface ThreadPicture {
         uri: string;
         width: number;
         height: number;
     }
 
-    export type IThreadListType = 'inbox' | 'archived' | 'pending';
+    export type ThreadListType = 'inbox' | 'archived' | 'pending';
 
-    export interface IUser {
+    export interface User {
         userID: string;
         firstName: string;
         fullName: string;
@@ -428,7 +428,7 @@ declare namespace FacebookChatApi {
         profileUrl: string;
     }
 
-    export interface IUserInfo {
+    export interface UserInfo {
         name: string;
         firstName: string;
         vanity: string;
@@ -442,7 +442,7 @@ declare namespace FacebookChatApi {
         alternateName: string;
     }
 
-    export interface IUserIDInfo {
+    export interface UserIDInfo {
         userID: string;
         photoUrl: string;
         indexRank: number;
@@ -466,11 +466,11 @@ declare namespace FacebookChatApi {
         | 'log:thread-icon'
         | 'log:user-nickname';
 
-    export interface IEvent {
+    export interface Event {
         type: EventType;
     }
 
-    export interface IMessageEvent extends IEvent {
+    export interface MessageEvent extends Event {
         type: 'message';
         senderName: string;
         senderID: string;
@@ -481,18 +481,18 @@ declare namespace FacebookChatApi {
         threadName: string;
         location?: string;
         messageID: string;
-        attachments: IAttachment[] | IAttachmentGraphQL[];
+        attachments: Attachment[] | AttachmentGraphQL[];
         timestamp: number;
         timestampAbsolute: number;
         timestampRelative: number;
         timestampDatetime: number;
         tags: string[];
-        reactions: IDictionary<string>
+        reactions: Dictionary<string>
         isUnread: boolean;
         isGroup: boolean;
     }
 
-    export interface IEventEvent extends IEvent {
+    export interface EventEvent extends Event {
         threadID: string;
         logMessageType: MessageType;
         logMessageData: string;
@@ -501,7 +501,7 @@ declare namespace FacebookChatApi {
         type: 'event';
     }
 
-    export interface ITypEvent extends IEvent {
+    export interface TypEvent extends Event {
         isTyping: boolean;
         from: string;
         threadID: string;
@@ -510,20 +510,20 @@ declare namespace FacebookChatApi {
         type: 'typ';
     }
 
-    export interface IReadEvent extends IEvent {
+    export interface ReadEvent extends Event {
         time: number;
         threadID: string;
         type: 'read';
     }
 
-    export interface IReadReceiptEvent extends IEvent {
+    export interface ReadReceiptEvent extends Event {
         reader: string;
         time: number;
         threadID: string;
         type: 'read_receipt';
     }
 
-    export interface IMessageReactionEvent extends IEvent {
+    export interface MessageReactionEvent extends Event {
         messageID: string;
         offlineThreadingID: string;
         reaction: string;
@@ -534,51 +534,51 @@ declare namespace FacebookChatApi {
         userID: string;
     }
 
-    export interface IPresenceEvent extends IEvent {
+    export interface PresenceEvent extends Event {
         statuses: number;
         timestamp: number;
         type: 'presence';
         userID: string;
     }
 
-    export interface IMessage {
+    export interface Message {
         body: string;
     }
 
-    export interface IStickerMessage extends IMessage {
+    export interface StickerMessage extends Message {
         sticker: string;
     }
 
-    export interface IAttachmentMessage extends IMessage {
+    export interface AttachmentMessage extends Message {
         attachment: ReadableStream | ReadableStream[];
     }
 
-    export interface IUrlMessage extends IMessage {
+    export interface UrlMessage extends Message {
         url: string;
     }
 
-    export interface IEmojiMessage extends IMessage {
+    export interface EmojiMessage extends Message {
         emoji: string;
         emojiSize: 'small' | 'medium' | 'large';
     }
 
-    export interface IMentionsMessage extends IMessage {
-        mentions: IMention[];
+    export interface MentionsMessage extends Message {
+        mentions: Mention[];
     }
 
-    export interface IMention {
+    export interface Mention {
         tag: string;
         id: string;
         fromIndex?: number;
     }
 
-    export interface IMessageInfo {
+    export interface MessageInfo {
         threadID: string;
         messageID: string;
         timestamp: number;
     }
 
-    export interface ITitleInfo {
+    export interface TitleInfo {
         threadID: string;
     }
 
@@ -591,79 +591,79 @@ declare namespace FacebookChatApi {
 
     export interface Api {
 
-        addUserToGroup(userID: string | string[], threadID: string, callback?: (err: IError) => void): void;
+        addUserToGroup(userID: string | string[], threadID: string, callback?: (err: Error) => void): void;
 
-        changeArchivedStatus(threadOrThreads: string | string[], archive: boolean, callback?: (err: IError) => void): void;
+        changeArchivedStatus(threadOrThreads: string | string[], archive: boolean, callback?: (err: Error) => void): void;
 
-        changeBlockedStatus(userID: string, block: boolean, callback?: (err: IError) => void): void;
+        changeBlockedStatus(userID: string, block: boolean, callback?: (err: Error) => void): void;
 
-        changeGroupImage(image: ReadableStream, threadID: string, callback?: (err: IError) => void): void;
+        changeGroupImage(image: ReadableStream, threadID: string, callback?: (err: Error) => void): void;
 
-        changeNickname(nickname: string, threadID: string, participantID: string, callback?: (err: IError) => void): void;
+        changeNickname(nickname: string, threadID: string, participantID: string, callback?: (err: Error) => void): void;
 
-        changeThreadColor(color: string, threadID: string, callback?: (err: IError) => void): void;
+        changeThreadColor(color: string, threadID: string, callback?: (err: Error) => void): void;
 
-        changeThreadEmoji(emoji: string, threadID: string, callback?: (err: IError) => void): void;
+        changeThreadEmoji(emoji: string, threadID: string, callback?: (err: Error) => void): void;
 
-        createPoll(title: string, threadID: string, options?: IPollOptions, callback?: (err: IError) => void): void;
+        createPoll(title: string, threadID: string, options?: PollOptions, callback?: (err: Error) => void): void;
 
-        deleteMessage(messageOrMessages: string | string[], callback?: (err: IError) => void): void;
+        deleteMessage(messageOrMessages: string | string[], callback?: (err: Error) => void): void;
 
-        deleteThread(threadOrThreads: string | string[], callback?: (err: IError) => void): void;
+        deleteThread(threadOrThreads: string | string[], callback?: (err: Error) => void): void;
 
-        forwardAttachment(attachmentID: string, userOrUsers: string | string[], callback?: (err: IError) => void): void;
+        forwardAttachment(attachmentID: string, userOrUsers: string | string[], callback?: (err: Error) => void): void;
 
-        getAppState(): IAppState;
+        getAppState(): AppState;
 
         getCurrentUserID(): String;
 
         getEmojiUrl(emojiCharacter: string, size: number, pixelRatio?: number): string;
 
-        getFriendsList(callback: (err: IError, arr: IUser[]) => void): void;
+        getFriendsList(callback: (err: Error, arr: User[]) => void): void;
 
         getThreadHistory(threadID: string, amount: number, timestamp: number,
-                                callback: (err: IError, history: IThreadHistoryMessage[]) => void): void;
+                                callback: (err: Error, history: ThreadHistoryMessage[]) => void): void;
 
         getThreadHistoryGraphQL(threadID: string, amount: number, timestamp: number,
-                                       callback: (err: IError, history: IAttachmentGraphQL[]) => void): void;
+                                       callback: (err: Error, history: AttachmentGraphQL[]) => void): void;
 
-        getThreadInfo(threadID: string, callback?: (err: IError, info: IThreadInfo) => void): void;
+        getThreadInfo(threadID: string, callback?: (err: Error, info: ThreadInfo) => void): void;
 
-        getThreadInfoGraphQL(threadID: string, callback?: (err: IError, info: IThreadInfoGraphQL) => void): void;
+        getThreadInfoGraphQL(threadID: string, callback?: (err: Error, info: ThreadInfoGraphQL) => void): void;
 
-        getThreadList(start: number, end: number, type: IThreadListType, callback: (err: IError, threadIDs: IThreadInfo[]) => void): void;
+        getThreadList(start: number, end: number, type: ThreadListType, callback: (err: Error, threadIDs: ThreadInfo[]) => void): void;
 
-        getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: IError, arr: IThreadPicture[]) => void): void;
+        getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: Error, arr: ThreadPicture[]) => void): void;
 
-        getUserID(name: string, callback: (err: IError, obj: IUserIDInfo) => void): void;
+        getUserID(name: string, callback: (err: Error, obj: UserIDInfo) => void): void;
 
-        getUserInfo(userID: string | string[], callback: (err: IError, obj: IDictionary<IUserInfo>) => void): void;
+        getUserInfo(userID: string | string[], callback: (err: Error, obj: Dictionary<UserInfo>) => void): void;
 
         threadColors(): string;
 
-        handleMessageRequest(threadID: string | string[], accept: boolean, callback?: (err: IError) => void): void;
+        handleMessageRequest(threadID: string | string[], accept: boolean, callback?: (err: Error) => void): void;
 
-        listen(callback: (err: IError, message: IEvent) => void): void;
+        listen(callback: (err: Error, message: Event) => void): void;
 
-        logout(callback?: (err: IError) => void): void;
+        logout(callback?: (err: Error) => void): void;
 
-        markAsRead(threadID: string, callback?: (err: IError) => void): void;
+        markAsRead(threadID: string, callback?: (err: Error) => void): void;
 
-        muteThread(threadID: string, muteSeconds: number, callback?: (err: IError) => void): void;
+        muteThread(threadID: string, muteSeconds: number, callback?: (err: Error) => void): void;
 
-        removeUserFromGroup(userID: string, threadID: string, callback?: (err: IError) => void): void;
+        removeUserFromGroup(userID: string, threadID: string, callback?: (err: Error) => void): void;
 
-        resolvePhotoUrl(photoID: string, callback: (err: IError, url: string) => void): void;
+        resolvePhotoUrl(photoID: string, callback: (err: Error, url: string) => void): void;
 
-        sendMessage(message: string | IMessage, threadID: string, callback?: (err: IError, messageInfo: IMessageInfo) => void): void;
+        sendMessage(message: string | Message, threadID: string, callback?: (err: Error, messageInfo: MessageInfo) => void): void;
 
-        sendTypingIndicator(threadID: string, callback?: (err: IError) => void): void;
+        sendTypingIndicator(threadID: string, callback?: (err: Error) => void): void;
 
-        setMessageReaction(reaction: ReactionType, messageID: string, callback?: (err: IError) => void): void;
+        setMessageReaction(reaction: ReactionType, messageID: string, callback?: (err: Error) => void): void;
 
-        setOptions(options: IApiOptions): void;
+        setOptions(options: ApiOptions): void;
 
-        setTitle(newTitle: string, threadID: string, callback?: (err: IError, obj: ITitleInfo) => void): void;
+        setTitle(newTitle: string, threadID: string, callback?: (err: Error, obj: TitleInfo) => void): void;
     }
 
 }
