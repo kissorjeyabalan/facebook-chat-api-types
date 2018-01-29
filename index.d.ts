@@ -591,27 +591,27 @@ declare namespace FacebookChatApi {
 
     export interface Api {
 
-        addUserToGroup(userID: string | string[], threadID: string, callback?: (err: Error) => void): void;
+        addUserToGroup(userID: string | string[], threadID: string, callback?: (err: Error) => void): any;
 
-        changeArchivedStatus(threadOrThreads: string | string[], archive: boolean, callback?: (err: Error) => void): void;
+        changeArchivedStatus(threadOrThreads: string | string[], archive: boolean, callback?: (err: Error) => void): any;
 
-        changeBlockedStatus(userID: string, block: boolean, callback?: (err: Error) => void): void;
+        changeBlockedStatus(userID: string, block: boolean, callback?: (err: Error) => void): any;
 
-        changeGroupImage(image: ReadableStream, threadID: string, callback?: (err: Error) => void): void;
+        changeGroupImage(image: ReadableStream, threadID: string, callback?: (err: Error) => void): any;
 
-        changeNickname(nickname: string, threadID: string, participantID: string, callback?: (err: Error) => void): void;
+        changeNickname(nickname: string, threadID: string, participantID: string, callback?: (err: Error) => void): any;
 
-        changeThreadColor(color: string, threadID: string, callback?: (err: Error) => void): void;
+        changeThreadColor(color: string, threadID: string, callback?: (err: Error) => void): any;
 
-        changeThreadEmoji(emoji: string, threadID: string, callback?: (err: Error) => void): void;
+        changeThreadEmoji(emoji: string, threadID: string, callback?: (err: Error) => void): any;
 
-        createPoll(title: string, threadID: string, options?: PollOptions, callback?: (err: Error) => void): void;
+        createPoll(title: string, threadID: string, options?: PollOptions, callback?: (err: Error) => void): any;
 
-        deleteMessage(messageOrMessages: string | string[], callback?: (err: Error) => void): void;
+        deleteMessage(messageOrMessages: string | string[], callback?: (err: Error) => void): any;
 
-        deleteThread(threadOrThreads: string | string[], callback?: (err: Error) => void): void;
+        deleteThread(threadOrThreads: string | string[], callback?: (err: Error) => void): any;
 
-        forwardAttachment(attachmentID: string, userOrUsers: string | string[], callback?: (err: Error) => void): void;
+        forwardAttachment(attachmentID: string, userOrUsers: string | string[], callback?: (err: Error) => void): any;
 
         getAppState(): AppState;
 
@@ -619,51 +619,51 @@ declare namespace FacebookChatApi {
 
         getEmojiUrl(emojiCharacter: string, size: number, pixelRatio?: number): string;
 
-        getFriendsList(callback: (err: Error, arr: User[]) => void): void;
+        getFriendsList(callback: (err: Error, arr: User[]) => void): any;
 
         getThreadHistory(threadID: string, amount: number, timestamp: number,
-                                callback: (err: Error, history: ThreadHistoryMessage[]) => void): void;
+                                callback: (err: Error, history: ThreadHistoryMessage[]) => void): any;
 
         getThreadHistoryGraphQL(threadID: string, amount: number, timestamp: number,
-                                       callback: (err: Error, history: AttachmentGraphQL[]) => void): void;
+                                       callback: (err: Error, history: AttachmentGraphQL[]) => void): any;
 
-        getThreadInfo(threadID: string, callback?: (err: Error, info: ThreadInfo) => void): void;
+        getThreadInfo(threadID: string, callback?: (err: Error, info: ThreadInfo) => void): any;
 
-        getThreadInfoGraphQL(threadID: string, callback?: (err: Error, info: ThreadInfoGraphQL) => void): void;
+        getThreadInfoGraphQL(threadID: string, callback?: (err: Error, info: ThreadInfoGraphQL) => void): any;
 
-        getThreadList(start: number, end: number, type: ThreadListType, callback: (err: Error, threadIDs: ThreadInfo[]) => void): void;
+        getThreadList(start: number, end: number, type: ThreadListType, callback: (err: Error, threadIDs: ThreadInfo[]) => void): any;
 
-        getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: Error, arr: ThreadPicture[]) => void): void;
+        getThreadPictures(threadID: string, offset: number, limit: number, callback: (err: Error, arr: ThreadPicture[]) => void): any;
 
-        getUserID(name: string, callback: (err: Error, obj: UserIDInfo) => void): void;
+        getUserID(name: string, callback: (err: Error, obj: UserIDInfo) => void): any;
 
-        getUserInfo(userID: string | string[], callback: (err: Error, obj: Dictionary<UserInfo>) => void): void;
+        getUserInfo(userID: string | string[], callback: (err: Error, obj: Dictionary<UserInfo>) => void): any;
 
         threadColors(): string;
 
-        handleMessageRequest(threadID: string | string[], accept: boolean, callback?: (err: Error) => void): void;
+        handleMessageRequest(threadID: string | string[], accept: boolean, callback?: (err: Error) => void): any;
 
-        listen(callback: (err: Error, message: Event) => void): void;
+        listen(callback: (err: Error, message: Event) => void): any;
 
-        logout(callback?: (err: Error) => void): void;
+        logout(callback?: (err: Error) => void): any;
 
-        markAsRead(threadID: string, callback?: (err: Error) => void): void;
+        markAsRead(threadID: string, callback?: (err: Error) => void): any;
 
-        muteThread(threadID: string, muteSeconds: number, callback?: (err: Error) => void): void;
+        muteThread(threadID: string, muteSeconds: number, callback?: (err: Error) => void): any;
 
-        removeUserFromGroup(userID: string, threadID: string, callback?: (err: Error) => void): void;
+        removeUserFromGroup(userID: string, threadID: string, callback?: (err: Error) => void): any;
 
-        resolvePhotoUrl(photoID: string, callback: (err: Error, url: string) => void): void;
+        resolvePhotoUrl(photoID: string, callback: (err: Error, url: string) => void): any;
 
-        sendMessage(message: string | Message, threadID: string, callback?: (err: Error, messageInfo: MessageInfo) => void): void;
+        sendMessage(message: string | Message, threadID: string, callback?: (err: Error, messageInfo: MessageInfo) => void): any;
 
-        sendTypingIndicator(threadID: string, callback?: (err: Error) => void): void;
+        sendTypingIndicator(threadID: string, callback?: (err: Error) => void): any;
 
-        setMessageReaction(reaction: ReactionType, messageID: string, callback?: (err: Error) => void): void;
+        setMessageReaction(reaction: ReactionType, messageID: string, callback?: (err: Error) => void): any;
 
-        setOptions(options: ApiOptions): void;
+        setOptions(options: ApiOptions): any;
 
-        setTitle(newTitle: string, threadID: string, callback?: (err: Error, obj: TitleInfo) => void): void;
+        setTitle(newTitle: string, threadID: string, callback?: (err: Error, obj: TitleInfo) => void): any;
     }
 
 }
