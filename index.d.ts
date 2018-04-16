@@ -627,7 +627,9 @@ getThreadHistory(threadID: string, amount: number, timestamp: number,
 getThreadHistoryGraphQL(threadID: string, amount: number, timestamp: number,
                     callback: (err: Error, history: AttachmentGraphQL[]) => void): any;
 
-getThreadInfo(threadID: string, callback?: (err: Error, info: ThreadInfo) => void): any;
+//getThreadInfo(threadID: string, callback?: (err: Error, info: ThreadInfo) => void): any;
+
+getThreadInfo(threadID: string, callback?: (err: Error, info: ThreadInfoGraphQL) => void): any;
 
 getThreadInfoGraphQL(threadID: string, callback?: (err: Error, info: ThreadInfoGraphQL) => void): any;
 
