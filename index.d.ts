@@ -50,10 +50,12 @@ forceLogin: boolean;
 
 export interface Error {
 error: string;
+continue?: () => any;
 }
 
 export interface Dictionary<T> {
 [key: string]: T;
+[Symbol.iterator]: any;
 }
 
 export interface PollOptions {
@@ -395,7 +397,7 @@ unreadCount: number;
 messageCount: number;
 timestamp: number;
 isPinProtected: boolean;
-eventReminders?: EventReminder;
+eventReminders?: EventReminder[];
 relatedPageThread: string;
 reactionsMuteMode: string;
 mentionsMuteMode: string;
@@ -403,7 +405,7 @@ threadType: string;
 topEmojis: string[];
 emoji?: string;
 color?: string;
-nicknames: string[];
+nicknames: {[key: string]: string};
 }
 
 export interface ThreadPicture {
@@ -472,22 +474,13 @@ type: EventType;
 
 export interface MessageEvent extends Event {
 type: 'message';
-senderName: string;
 senderID: string;
-participantNames: string[];
-participantIDs: string[];
 body: string;
 threadID: string;
-threadName: string;
-location?: string;
 messageID: string;
 attachments: Attachment[] | AttachmentGraphQL[];
+mentions: any;
 timestamp: number;
-timestampAbsolute: number;
-timestampRelative: number;
-timestampDatetime: number;
-tags: string[];
-reactions: Dictionary<string>
 isUnread: boolean;
 isGroup: boolean;
 }
